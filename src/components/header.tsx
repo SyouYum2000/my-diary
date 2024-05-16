@@ -4,8 +4,12 @@ import { useState } from "react"
 
 const Header = () => {
     const [active, setActive] = useState<boolean>(false)
+    const [detailCompany , setDetailCompany] = useState<boolean>(false)
     const handleClick = () => {
         setActive(!active)
+    }
+    const detailCompanyClick = () => {
+        setDetailCompany(!detailCompany)
     }
     return (
         <>
@@ -28,13 +32,21 @@ const Header = () => {
                 </button>
 
                 <nav className={
-                    active ? "z-40 bg-gray-500/50 fixed top-0 right-0 bottom-0 left-0 h-screen flex flex-col" : "fixed right-[-100%] md:right-4"
+                    active ? "z-40 bg-gray-500/50 fixed top-0 right-0 bottom-0 left-0  flex flex-col" : "fixed right-[-100%] md:right-4"
                 }>
                     <ul className={active
-                        ? "flex h-screen justify-center items-center flex-col gap-6 text-xl"
+                        ? "flex mt-20 justify-center items-center flex-col text-xl divide-y-2"
                         : "hidden"}>
-                        <li>テスト1</li>
-                        <li>テスト2</li>
+                        <li className="w-full px-20">
+                            <div className="block">
+                                <h2 className="">会社を知る<button onClick={detailCompanyClick}>押す</button></h2>
+                                <ul className={detailCompany ? "block bg-black py-0 my-0" : "hidden"}>
+                                    <li>魅力</li>
+                                    <li>あああ</li>
+                                </ul>
+                            </div>
+                        </li>
+                        <li className="w-full px-20">テスト2</li>
                     </ul>
                 </nav>
             </div>
