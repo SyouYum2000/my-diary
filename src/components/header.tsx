@@ -1,15 +1,25 @@
 "use client"
-
-import { useState } from "react"
+import clsx from 'clsx'
+import { useState, useRef, type FC } from "react"
 
 const Header = () => {
+    const [contentHeight, setContentHeight] = useState(0)
     const [active, setActive] = useState<boolean>(false)
-    const [detailCompany , setDetailCompany] = useState<boolean>(false)
+    const [detailCompany, setDetailCompany] = useState<boolean>(false)
+    const childElement = useRef<HTMLDivElement>(null)
+
+    // ハンバーガーをクリック
     const handleClick = () => {
         setActive(!active)
     }
-    const detailCompanyClick = () => {
-        setDetailCompany(!detailCompany)
+    // アコーディオンクリック
+    const onClickAccordionToggle = () => {
+        if (childElement.current) {
+            const firstChild = childElement.current.firstChild as HTMLElement
+            const childHeight = firstChild.clientHeight
+            setContentHeight(childHeight)
+            setDetailCompany(!detailCompany)
+        }
     }
     return (
         <>
@@ -39,14 +49,34 @@ const Header = () => {
                         : "hidden"}>
                         <li className="w-full px-20">
                             <div className="block">
-                                <h2 className="">会社を知る<button onClick={detailCompanyClick}>押す</button></h2>
-                                <ul className={detailCompany ? "block bg-black py-0 my-0" : "hidden"}>
-                                    <li>魅力</li>
-                                    <li>あああ</li>
-                                </ul>
+                                <h2 className="">会社を知る<button onClick={onClickAccordionToggle}>押す</button></h2>
+                                <div
+                                    className={clsx("block bg-gray-500/15 py-0 my-0 transition-[height] duration-1000 ease-linear")}
+                                    ref={childElement}
+                                    style={{
+                                        height: detailCompany ? `${contentHeight}px` : '0px'
+                                    }}
+                                >
+                                    <div className={clsx(
+                                        'transition-all duration-100',
+                                        {
+                                            'opacity-100': detailCompany,
+                                            'opacity-0': !detailCompany
+                                        }
+                                    )}>
+                                        <p className={
+                                            clsx(
+                                                'transition-all duration-100',
+                                                {
+                                                    'opacity-100': detailCompany,
+                                                    'opacity-0': !detailCompany
+                                                }
+                                            )
+                                        }>aaaa</p>
+                                    </div>
+                                </div>
                             </div>
                         </li>
-                        <li className="w-full px-20">テスト2</li>
                     </ul>
                 </nav>
             </div>

@@ -29,7 +29,7 @@ const ScrollButton = () => {
     }
   return (
     <div ref={scrollRef}>
-        {window.scrollY >= 0 && 
+        {/* {window.scrollY >= 0 && 
             <button 
                 onClick={handleScroll}
                 className='fixed bottom-20 right-20 z-30'
@@ -37,7 +37,7 @@ const ScrollButton = () => {
                     スクロール！
                 
             </button>
-        }
+        } */}
     </div>
   )
 }
